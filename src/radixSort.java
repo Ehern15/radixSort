@@ -33,31 +33,44 @@ public static void printArray(int arr[]){
 public static void countSort(int arr[], int numsPlace){
     ArrayList<Integer> bucket
             = new ArrayList<Integer>(10);
-    for (int i = 0; i < bucket.size(); i++) {
-        bucket.set(i,0);
+    for (int i = 0; i < 10; i++) {
+        bucket.add(i,0);
     }
+    
     int temp;
     int[] output;
     output = new int[arr.length];
     Arrays.fill(output,0);
 
     for(int i = 0;i < arr.length;i++){
-        temp = arr[i] % numsPlace;
-        bucket.set(temp,bucket.get(temp) + 1);
-        if(i > 0){
-            bucket.set(i, bucket.get(i) + bucket.get(i-1));
-        }
+        temp = (arr[i]/numsPlace) % 10;
+        int temp1 = bucket.get(temp) + 1;
+        bucket.set(temp,temp1);
     }
     for (int i = 0; i < bucket.size(); i++) {
-        if(bucket.get(i) > 0){
+        int num;
+
+        if(i>0){
+            num = bucket.get(i-1) + bucket.get(i);
+            bucket.set(i,num);
+        }
+    }
+    
+    for (int i = 0; i < arr.length; i++) {
+        
+        System.out.print(bucket.get(i));
         
         output[bucket.get((arr[i] / numsPlace) % 10) - 1] = arr[i];
         bucket.set(i,bucket.get(i)- 1);
-        }
+        
     }
+    System.out.println();
     for (int i = 0; i < output.length; i++) {
         arr[i] = output[i];
+        System.out.print(arr[i]);
+        
     }
+    System.out.println();
 }
 public static void performRadixSort(int arr[]){
     int max = getMax(arr);
@@ -66,14 +79,11 @@ public static void performRadixSort(int arr[]){
         }
     printArray(arr);
     }
-    // TODO somethings broken here
-    
-
 public static void main(String[] args) {
     int[] input1 = {24, 12, 4, 366, 45, 66, 8, 14};
     int[] input2 = {24, 2, 4, 466, 48, 66, 8, 44};
     if (detectOdd(input1)){
-        System.out.println("***Even Detected. Terminating Program.***");
+        System.out.println("***Odd Detected. Terminating Program.***");
         System.exit(1);
     }else{
         
