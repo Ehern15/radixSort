@@ -59,15 +59,18 @@ public static void countSort(int arr[], int numsPlace){
     for (int i = 0; i < arr.length; i++) {
         
         System.out.print(bucket.get(i));
-        
-        output[bucket.get((arr[i] / numsPlace) % 10) - 1] = arr[i];
-        bucket.set(i,bucket.get(i)- 1);
+        int num;
+        num = (arr[i]/numsPlace) % 10 - 1;
+        output[bucket.get(num)] = arr[i];
+        if(bucket.get(i) > 0){
+        bucket.set(i,bucket.get(i) - 1);
+        } 
         
     }
     System.out.println();
     for (int i = 0; i < output.length; i++) {
         arr[i] = output[i];
-        System.out.print(arr[i]);
+        System.out.print(arr[i] + " ");
         
     }
     System.out.println();
